@@ -126,6 +126,10 @@ function  countDown(number) {
 countDown(3);
 //10) Write a polyfill for a .bind() function and save it in Function.prototype.myBind(). myBind() should work in an 
 //exact same way as the usual bind() - take context as a first parameter and the list of arguments separated by comma.
-Function.prototype.myBind = function () {
-    
+Function.prototype.myBind = function (context, numargs) {
+    var bindArgs = [].slice.call(arguments, 2);
+    return function() {
+        var fnArgs = [].slice.call(arguments); 
+        return numargs.apply(context, bindArgs.concat(fnArgs));
     }
+}
